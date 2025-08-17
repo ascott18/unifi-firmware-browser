@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container max-width="1200px">
     <v-btn
       prepend-icon="mdi-arrow-left"
       class="mb-4"
@@ -144,7 +144,7 @@
         </v-card>
       </v-col>
     </v-row>
-  </div>
+  </v-container>
 </template>
 
 <script setup lang="ts">

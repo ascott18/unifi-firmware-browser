@@ -25,9 +25,7 @@
       </v-app-bar>
 
       <v-main>
-        <v-container>
-          <RouterView />
-        </v-container>
+        <RouterView />
       </v-main>
     </template>
   </v-app>

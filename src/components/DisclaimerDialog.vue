@@ -1,5 +1,5 @@
 <template>
-  <v-container class="fill-height" style="max-width: 600px">
+  <v-container class="fill-height" max-width="600px">
     <v-card class="pa-6">
       <v-card-title class="text-h4 text-center mb-4">
         UniFi Firmware Browser

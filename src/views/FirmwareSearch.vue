@@ -1,5 +1,5 @@
 <template>
-  <div class="gr-4 d-flex flex-column">
+  <v-container class="gr-4 d-flex flex-column" max-width="1200px">
     <!-- Filters Toolbar -->
     <v-card>
       <v-card-text>
@@ -83,21 +83,15 @@
       {{ firmware.error.value }}
     </v-alert>
 
-    <v-expand-transition>
-      <v-alert
-        v-if="
-          !firmware.isLoading.value &&
-          isShowingLatestFirmwareData &&
-          firmware.state.value.length > 0
-        "
-        type="info"
-        variant="tonal"
-        elevation="1"
-      >
-        Showing latest firmware versions. Apply filters to see more results or
-        older versions.
-      </v-alert>
-    </v-expand-transition>
+    <v-alert
+      v-if="isShowingLatestFirmwareData"
+      type="info"
+      variant="tonal"
+      elevation="1"
+    >
+      Showing latest firmware versions. Apply filters to see more results or
+      older versions.
+    </v-alert>
 
     <div
       v-if="
@@ -189,7 +183,7 @@
         </template>
       </v-data-table>
     </template>
-  </div>
+  </v-container>
 </template>
 
 <script setup lang="ts">
