@@ -1,33 +1,16 @@
-# vue-project
+# UniFi Firmware Browser
 
-This template should help get you started developing with Vue 3 in Vite.
+A community-created, unofficial web application for browsing and discovering UniFi firmware files. This tool provides an easy-to-use interface for exploring publicly available UniFi firmware across different channels (release, beta, alpha) and device types.
 
-## Recommended IDE Setup
+Not affiliated with Ubiquiti. Use firmware at your own risk and comply with [Ubiquiti's EULA](https://www.ui.com/eula/).
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Development Setup
 
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
+```bash
+npm ci
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+## Support
 
-```sh
-npm run build
-```
+This is a community project. For issues with the tool itself, please use GitHub issues. For UniFi device support, please contact Ubiquiti directly.
