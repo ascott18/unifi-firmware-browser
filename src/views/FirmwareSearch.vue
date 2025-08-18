@@ -1,187 +1,260 @@
 <template>
-  <v-container class="gr-4 d-flex flex-column" max-width="1200px">
-    <!-- Filters Toolbar -->
-    <v-card>
-      <v-card-text>
-        <v-row align="start">
-          <v-col cols="12" sm="6" md="4">
+  <v-container class="d-flex flex-column" max-width="1400px">
+    <!-- Search & Filters Section -->
+    <v-card class="mb-6" elevation="3">
+      <v-card-title class="d-flex align-center">
+        <v-icon class="mr-2">mdi-filter</v-icon>
+        Search & Filter Firmware
+      </v-card-title>
+      <v-card-text class="pb-4">
+        <v-row align="center">
+          <v-col cols="12" md="5">
             <v-autocomplete
               v-model="selectedProductType"
               :items="filterOptions.state.value.products"
               :loading="filterOptions.isLoading.value"
-              label="Product Type"
-              placeholder="All Products"
-              persistent-placeholder
-              persistent-clear
+              label="Product"
+              placeholder="Select a product..."
+              prepend-inner-icon="mdi-package-variant"
               variant="outlined"
-              density="compact"
+              density="comfortable"
               hide-details
               clearable
               @keydown.enter="(e: KeyboardEvent) => selectedProductType = (e.target as HTMLInputElement).value"
-            ></v-autocomplete>
+            >
+              <template #no-data>
+                <v-list-item>
+                  <v-list-item-title>Loading products...</v-list-item-title>
+                </v-list-item>
+              </template>
+            </v-autocomplete>
           </v-col>
 
-          <v-col cols="12" sm="6" md="4">
-            <v-autocomplete
-              v-model="selectedPlatform"
-              :items="filterOptions.state.value.platforms"
-              :loading="filterOptions.isLoading.value"
-              label="Platform"
-              placeholder="All Platforms"
-              persistent-placeholder
-              persistent-clear
-              variant="outlined"
-              density="compact"
-              hide-details
-              clearable
-              @keydown.enter="(e: KeyboardEvent) => selectedPlatform = (e.target as HTMLInputElement).value"
-            ></v-autocomplete>
-            <div class="text-caption mt-1">
-              <router-link
-                to="/faq#platform-detection"
-                class="text-primary text-decoration-none"
+          <v-col cols="12" md="5">
+            <div class="position-relative">
+              <div
+                class="position-absolute text-caption text-medium-emphasis"
+                style="top: -20px; right: 0"
               >
-                Need help finding your platform?
-              </router-link>
+                <v-icon size="small" class="mr-1">mdi-help-circle</v-icon>
+                <router-link
+                  to="/faq#platform-detection"
+                  class="text-primary text-decoration-none"
+                >
+                  Need help finding your platform?
+                </router-link>
+              </div>
+              <v-autocomplete
+                v-model="selectedPlatform"
+                :items="filterOptions.state.value.platforms"
+                :loading="filterOptions.isLoading.value"
+                label="Platform"
+                placeholder="Select a platform..."
+                prepend-inner-icon="mdi-chip"
+                variant="outlined"
+                density="comfortable"
+                hide-details
+                clearable
+                @keydown.enter="(e: KeyboardEvent) => selectedPlatform = (e.target as HTMLInputElement).value"
+              >
+                <template #no-data>
+                  <v-list-item>
+                    <v-list-item-title>Loading platforms...</v-list-item-title>
+                  </v-list-item>
+                </template>
+              </v-autocomplete>
             </div>
           </v-col>
 
-          <v-col cols="12" sm="6" md="3">
-            <v-select
-              v-model="selectedReleaseDate"
-              :items="releaseDates"
-              label="Release Date"
-              variant="outlined"
-              density="compact"
-              hide-details
-            ></v-select>
-          </v-col>
-
-          <v-col cols="12" sm="6" md="1">
+          <v-col cols="12" md="2" class="d-flex justify-center">
             <v-btn
               color="error"
-              variant="outlined"
+              variant="text"
               @click="clearFilters"
               :disabled="firmware.isLoading.value"
-              block
+              icon="mdi-filter-remove"
+              size="large"
             >
-              Clear
             </v-btn>
           </v-col>
         </v-row>
       </v-card-text>
     </v-card>
-
     <!-- Results Section -->
     <v-alert
       v-if="firmware.error.value"
       type="error"
-      class="mb-4"
+      class="mb-6"
+      variant="tonal"
       dismissible
       @click:close="firmware.error.value = null"
     >
+      <template #prepend>
+        <v-icon>mdi-alert-circle</v-icon>
+      </template>
       {{ firmware.error.value }}
     </v-alert>
 
-    <v-alert
-      v-if="isShowingLatestFirmwareData"
-      type="info"
-      variant="tonal"
-      elevation="1"
-    >
-      Showing latest firmware versions. Apply filters to see more results or
-      older versions.
-    </v-alert>
-
-    <div
+    <!-- Loading State -->
+    <v-card
       v-if="
         (firmware.isLoading.value || filterOptions.isLoading.value) &&
         firmware.state.value.length === 0
       "
-      class="text-center py-8"
+      class="text-center py-12"
+      elevation="2"
     >
       <v-progress-circular
         indeterminate
         size="64"
         color="primary"
+        class="mb-4"
       ></v-progress-circular>
-      <p class="text-h6 mt-4">Loading firmware...</p>
-    </div>
+      <p class="text-h6 text-medium-emphasis">Loading firmware database...</p>
+      <p class="text-body-2 text-disabled">This may take a few moments</p>
+    </v-card>
 
+    <!-- Results -->
     <template v-else>
-      <v-alert
+      <!-- No Results State -->
+      <v-card
         v-if="firmware.state.value.length === 0"
-        type="info"
-        class="mt-4"
+        class="text-center py-12"
+        elevation="2"
       >
-        No firmware found matching your criteria.
-      </v-alert>
+        <v-icon size="80" color="disabled" class="mb-4"
+          >mdi-database-search</v-icon
+        >
+        <h3 class="text-h5 mb-2">No firmware found</h3>
+        <p class="text-body-1 text-medium-emphasis mb-4">
+          Try adjusting your search criteria or clearing all filters
+        </p>
+        <v-btn color="primary" variant="outlined" @click="clearFilters">
+          <v-icon start>mdi-filter-remove</v-icon>
+          Clear All Filters
+        </v-btn>
+      </v-card>
 
-      <v-data-table
-        v-else
-        :headers="tableHeaders"
-        :items="firmware.state.value"
-        :loading="firmware.isLoading.value"
-        :items-per-page="100"
-        :sort-by="sortBy ? [{ key: sortBy, order: sortOrder }] : []"
-        @update:sort-by="handleSort"
-        item-key="id"
-        class="elevation-2 rounded"
-      >
-        <template #item.product="{ item }">
-          <span
-            class="text-primary cursor-pointer text-decoration-underline"
-            @click="selectedProductType = item.product"
-            :title="'Filter by product: ' + item.product"
-          >
-            {{ item.product }}
-          </span>
-        </template>
-
-        <template #item.platform="{ item }">
-          <span
-            class="text-primary cursor-pointer text-decoration-underline"
-            @click="selectedPlatform = item.platform"
-            :title="'Filter by platform: ' + item.platform"
-          >
-            {{ item.platform }}
-          </span>
-        </template>
-
-        <template #item.channel="{ item }">
-          <v-chip
-            :color="item.channel === 'release' ? 'success' : 'warning'"
-            size="small"
-          >
-            {{ getChannelDisplayName(item.channel) }}
-          </v-chip>
-        </template>
-
-        <template #item.actions="{ item }">
-          <div class="d-flex">
-            <v-btn
-              color="success"
-              variant="outlined"
+      <!-- Results Table -->
+      <v-card v-else elevation="3" class="overflow-hidden">
+        <v-card-title class="d-flex align-center justify-space-between">
+          <div class="d-flex align-center">
+            <v-icon class="mr-2">mdi-table</v-icon>
+            Firmware Results
+            <v-chip class="ml-2" size="small" color="primary">
+              {{ firmware.state.value.length }} found
+            </v-chip>
+            <v-chip
+              v-if="isShowingLatestFirmwareData"
+              class="ml-2"
               size="small"
-              prepend-icon="mdi-download"
-              :href="firmwareService.getDownloadUrl(item)"
-              tag="a"
-              class="mr-2"
+              color="info"
             >
-              Download
-            </v-btn>
-            <v-btn
+              Showing latest versions only - apply filters for more
+            </v-chip>
+          </div>
+          <div v-if="firmware.isLoading.value">
+            <v-progress-circular
+              indeterminate
+              size="20"
+              color="primary"
+            ></v-progress-circular>
+          </div>
+        </v-card-title>
+
+        <v-data-table
+          :headers="tableHeaders"
+          :items="firmware.state.value"
+          :loading="firmware.isLoading.value"
+          :items-per-page="100"
+          :sort-by="sortBy ? [{ key: sortBy, order: sortOrder }] : []"
+          @update:sort-by="handleSort"
+          item-key="id"
+          class="elevation-0"
+          hover
+          density="compact"
+        >
+          <template #item.product="{ item }">
+            <v-chip
               color="primary"
               variant="outlined"
               size="small"
-              prepend-icon="mdi-information"
-              :to="`/firmware/${item.id}`"
+              @click="selectedProductType = item.product"
+              class="cursor-pointer"
+              :title="'Filter by product: ' + item.product"
             >
-              Details
-            </v-btn>
-          </div>
-        </template>
-      </v-data-table>
+              {{ item.product }}
+            </v-chip>
+          </template>
+
+          <template #item.platform="{ item }">
+            <v-chip
+              color="purple"
+              variant="outlined"
+              size="small"
+              @click="selectedPlatform = item.platform"
+              class="cursor-pointer"
+              :title="'Filter by platform: ' + item.platform"
+            >
+              {{ item.platform }}
+            </v-chip>
+          </template>
+
+          <template #item.version="{ item }">
+            <span class="font-weight-medium">{{ item.version }}</span>
+          </template>
+
+          <template #item.channel="{ item }">
+            <span
+              class="font-weight-medium"
+              :class="{
+                'text-success': item.channel === 'release',
+                'text-warning':
+                  item.channel === 'beta' || item.channel === 'beta-public',
+                'text-info': item.channel === 'alpha',
+              }"
+            >
+              {{ getChannelDisplayName(item.channel) }}
+            </span>
+          </template>
+
+          <template #item.file_size="{ item }">
+            <span class="font-weight-medium">{{
+              formatFileSize(item.file_size)
+            }}</span>
+          </template>
+
+          <template #item.created="{ item }">
+            <span class="font-weight-medium">{{
+              formatDate(item.created)
+            }}</span>
+          </template>
+
+          <template #item.actions="{ item }">
+            <div class="d-flex ga-2">
+              <v-btn
+                color="success"
+                variant="flat"
+                size="small"
+                prepend-icon="mdi-download"
+                :href="firmwareService.getDownloadUrl(item)"
+                tag="a"
+              >
+                Download
+              </v-btn>
+              <v-btn
+                color="primary"
+                variant="outlined"
+                size="small"
+                prepend-icon="mdi-information"
+                :to="`/firmware/${item.id}`"
+              >
+                Details
+              </v-btn>
+            </div>
+          </template>
+        </v-data-table>
+      </v-card>
     </template>
   </v-container>
 </template>
@@ -201,7 +274,6 @@ import type { DataTableHeader } from "vuetify";
 // Reactive data
 const selectedProductType = useRouteQuery<string | null>("product", null);
 const selectedPlatform = useRouteQuery<string | null>("platform", null);
-const selectedReleaseDate = useRouteQuery<string | null>("date", "All Time");
 
 // Sort state synced with URL
 const sortBy = useRouteQuery<string>("sortBy", "created");
@@ -227,11 +299,7 @@ const firmware = useAsyncState(
   async () => {
     // Check if any filters are applied
     let response;
-    if (
-      !selectedProductType.value &&
-      !selectedPlatform.value &&
-      selectedReleaseDate.value === "All Time"
-    ) {
+    if (!selectedProductType.value && !selectedPlatform.value) {
       // No filters applied - use firmware-latest
       response = await firmwareService.fetchLatestFirmware();
 
@@ -272,19 +340,19 @@ const firmware = useAsyncState(
 // Firmware loading state
 const isShowingLatestFirmwareData = ref(false);
 
-const releaseDates = [
-  "All Time",
-  "Last 30 Days",
-  "Last 90 Days",
-  "Last 6 Months",
-  "Last Year",
-];
-
 // Table headers
 const tableHeaders: DataTableHeader[] = [
   { title: "Product", key: "product", sortable: true },
   { title: "Platform", key: "platform", sortable: true },
   { title: "Version", key: "version", sortable: true },
+  {
+    title: "Release Date",
+    key: "created",
+    sortable: true,
+    value: (item: any) => formatDate(item.created),
+    sortRaw: (a: any, b: any) =>
+      new Date(a.created).getTime() - new Date(b.created).getTime(),
+  },
   {
     title: "Type",
     key: "channel",
@@ -298,21 +366,12 @@ const tableHeaders: DataTableHeader[] = [
     value: (item: any) => formatFileSize(item.file_size),
     sortRaw: (a: any, b: any) => a.file_size - b.file_size,
   },
-  {
-    title: "Release Date",
-    key: "created",
-    sortable: true,
-    value: (item: any) => formatDate(item.created),
-    sortRaw: (a: any, b: any) =>
-      new Date(a.created).getTime() - new Date(b.created).getTime(),
-  },
   { title: "Actions", key: "actions", sortable: false, width: "200px" },
 ];
 
 const clearFilters = () => {
   selectedProductType.value = null;
   selectedPlatform.value = null;
-  selectedReleaseDate.value = "All Time";
   sortBy.value = "created";
   sortOrder.value = "desc";
 };
@@ -336,7 +395,7 @@ const debouncedExecute = useDebounceFn(() => {
   firmware.execute();
 }, 300);
 
-watch([selectedProductType, selectedPlatform, selectedReleaseDate], () => {
+watch([selectedProductType, selectedPlatform], () => {
   debouncedExecute();
 });
 
