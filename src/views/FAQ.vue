@@ -9,32 +9,6 @@
     <!-- FAQ Content -->
     <v-row>
       <v-col cols="12">
-        <v-card class="mb-4">
-          <v-card-title> Is this an official UniFi tool? </v-card-title>
-          <v-card-text>
-            <p class="mb-3">
-              <strong
-                >No, this is not an official UniFi or Ubiquiti tool.</strong
-              >
-            </p>
-            <p class="mb-3">
-              This is an independent, community-created firmware browser that
-              uses publicly available UniFi firmware data. It is not affiliated
-              with, endorsed by, or supported by Ubiquiti Inc. While the
-              firmware data comes from official UniFi sources, this tool is
-              provided as-is for convenience. Always verify firmware
-              compatibility and backup your devices before updating.
-            </p>
-            <v-alert type="warning" variant="tonal" class="mt-3">
-              <strong>Use at your own risk:</strong> This tool is not officially
-              supported by Ubiquiti. For official support and firmware updates,
-              use the existing auto-update mechanisms in Unifi OS. You only have
-              yourself to blame if you break your device by installing incorrect
-              or unsupported firmware.
-            </v-alert>
-          </v-card-text>
-        </v-card>
-
         <v-card class="mb-4" id="platform-detection">
           <v-card-title> How do I determine my platform? </v-card-title>
           <v-card-text>
@@ -157,18 +131,13 @@
               <v-icon class="mr-2">mdi-update</v-icon>
               Disable Auto-Updates (<strong>Important</strong>)
             </h4>
-            <v-alert type="info" variant="tonal" class="mb-4">
-              <strong>Important First Step:</strong> Disable auto-updates to
-              prevent your device from automatically reverting to official
-              firmware after manual installation.
-            </v-alert>
             <ol class="mb-4">
               <li class="mb-2">
                 <strong>Navigate to Settings:</strong> In your UniFi Controller,
                 go to <strong>Settings > Control Plane > Updates</strong>.
               </li>
               <li class="mb-2">
-                <strong>Select the relevant application:</strong> Click on the
+                <strong>Select the application:</strong> Click on the
                 application that manages your device (<strong>Network</strong>,
                 <strong>Protect</strong>, <strong>Access</strong>, etc.).
               </li>
@@ -203,8 +172,8 @@
                 settings.
               </li>
               <li class="mb-2">
-                <strong>Paste URL:</strong> In the dialog that appears, paste
-                the firmware URL you copied.
+                <strong>Paste URL:</strong> Paste the firmware URL in the manual
+                update dialog.
               </li>
             </ol>
 
@@ -217,7 +186,7 @@
             <ol class="mb-4">
               <li class="mb-2">
                 <strong>Download firmware file:</strong> Download the firmware
-                file from this browser to your computer.
+                to your computer.
               </li>
               <li class="mb-2">
                 <strong>Access camera web interface:</strong> Follow the
@@ -228,8 +197,8 @@
               </li>
               <li class="mb-2">
                 <strong>Upload firmware:</strong> In the camera's web interface,
-                navigate to the <strong>System</strong> tab and browse to select
-                the firmware file you downloaded.
+                go to the<strong>System</strong> tab and select the firmware
+                file.
               </li>
               <li class="mb-2">
                 <strong>Install:</strong> Follow the on-screen prompts to
@@ -242,7 +211,3 @@
     </v-row>
   </v-container>
 </template>
-
-<script setup lang="ts">
-// FAQ page component
-</script>

@@ -63,9 +63,7 @@
                     prepend-icon="mdi-source-branch"
                     title="Release Channel"
                     :subtitle="
-                      firmwareService.getChannelDisplayName(
-                        firmware.state.value.channel
-                      )
+                      getChannelDisplayName(firmware.state.value.channel)
                     "
                   />
                 </v-list>
@@ -80,18 +78,12 @@
                   <v-list-item
                     prepend-icon="mdi-calendar"
                     title="Release Date"
-                    :subtitle="
-                      firmwareService.formatDate(firmware.state.value.created)
-                    "
+                    :subtitle="formatDate(firmware.state.value.created)"
                   />
                   <v-list-item
                     prepend-icon="mdi-file-outline"
                     title="File Size"
-                    :subtitle="
-                      firmwareService.formatFileSize(
-                        firmware.state.value.file_size
-                      )
-                    "
+                    :subtitle="formatFileSize(firmware.state.value.file_size)"
                   />
                 </v-list>
               </v-col>
@@ -151,7 +143,12 @@
 import { onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useAsyncState } from "@vueuse/core";
-import firmwareService, { type FirmwareItem } from "@/services/firmwareService";
+import firmwareService, { type FirmwareItem } from "@/firmwareService";
+import {
+  formatFileSize,
+  formatDate,
+  getChannelDisplayName,
+} from "@/formatters";
 
 const route = useRoute();
 

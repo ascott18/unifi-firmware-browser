@@ -153,7 +153,7 @@
             :color="item.channel === 'release' ? 'success' : 'warning'"
             size="small"
           >
-            {{ firmwareService.getChannelDisplayName(item.channel) }}
+            {{ getChannelDisplayName(item.channel) }}
           </v-chip>
         </template>
 
@@ -188,7 +188,12 @@
 
 <script setup lang="ts">
 import { ref, onMounted, watch, computed } from "vue";
-import firmwareService, { type FirmwareItem } from "@/services/firmwareService";
+import firmwareService, { type FirmwareItem } from "@/firmwareService";
+import {
+  formatFileSize,
+  formatDate,
+  getChannelDisplayName,
+} from "@/formatters";
 import { useRouteQuery } from "@vueuse/router";
 import { useAsyncState, useDebounceFn } from "@vueuse/core";
 import type { DataTableHeader } from "vuetify";
@@ -284,20 +289,20 @@ const tableHeaders: DataTableHeader[] = [
     title: "Type",
     key: "channel",
     sortable: true,
-    value: (item: any) => firmwareService.getChannelDisplayName(item.channel),
+    value: (item: any) => getChannelDisplayName(item.channel),
   },
   {
     title: "Size",
     key: "file_size",
     sortable: true,
-    value: (item: any) => firmwareService.formatFileSize(item.file_size),
+    value: (item: any) => formatFileSize(item.file_size),
     sortRaw: (a: any, b: any) => a.file_size - b.file_size,
   },
   {
     title: "Release Date",
     key: "created",
     sortable: true,
-    value: (item: any) => firmwareService.formatDate(item.created),
+    value: (item: any) => formatDate(item.created),
     sortRaw: (a: any, b: any) =>
       new Date(a.created).getTime() - new Date(b.created).getTime(),
   },

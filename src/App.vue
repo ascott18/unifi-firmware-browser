@@ -38,3 +38,22 @@ import DisclaimerDialog from "./components/DisclaimerDialog.vue";
 
 const hasAcceptedEula = useLocalStorage("disclaimer-agreed", false);
 </script>
+
+<style>
+.v-application ul,
+.v-application ol {
+  padding-left: 24px;
+}
+
+.v-application code {
+  background-color: rgb(var(--v-theme-surface-variant));
+  color: rgb(var(--v-theme-on-surface-variant));
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: "Monaco", "Menlo", "Ubuntu Mono", "Consolas", "source-code-pro",
+    monospace;
+  font-size: 0.875em;
+  font-weight: 500;
+  border: 1px solid rgb(var(--v-theme-outline-variant));
+}
+</style>
