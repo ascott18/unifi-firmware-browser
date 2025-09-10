@@ -36,22 +36,22 @@ jobs:
       with:
         path: ./dist
 
-  deploy:
-    # Only deploy on pushes to main branch
-    if: github.ref == 'refs/heads/main'
+  # deploy:
+  #   # Only deploy on pushes to main branch
+  #   if: github.ref == 'refs/heads/main'
     
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  #   environment:
+  #     name: github-pages
+  #     url: ${{ steps.deployment.outputs.page_url }}
     
-    runs-on: ubuntu-latest
-    needs: build
+  #   runs-on: ubuntu-latest
+  #   needs: build
     
-    permissions:
-      pages: write
-      id-token: write
+  #   permissions:
+  #     pages: write
+  #     id-token: write
     
-    steps:
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+  #   steps:
+  #   - name: Deploy to GitHub Pages
+  #     id: deployment
+  #     uses: actions/deploy-pages@v4
