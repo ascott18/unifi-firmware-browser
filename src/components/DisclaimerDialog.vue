@@ -1,20 +1,17 @@
 <template>
-  <v-container class="fill-height" max-width="600px">
+  <v-container max-width="600px">
     <v-card class="pa-6">
       <v-card-title class="text-h4 text-center mb-4">
         UniFi Firmware Browser
       </v-card-title>
 
       <v-card-text>
-        <v-alert type="warning" variant="tonal" class="mb-6">
-          <v-alert-title>Notice</v-alert-title>
-          <p class="mt-3">
-            This is an
-            <strong>unofficial, community-created tool</strong> that provides
-            listings of existing, publicly available UniFi firmware files. By
-            using this page, you acknowledge and agree that:
-          </p>
-        </v-alert>
+        <p class="mb-3">
+          This is an
+          <strong>unofficial, community-created tool</strong> that provides
+          listings of existing, publicly available UniFi firmware files. By
+          using this page, you acknowledge and agree that:
+        </p>
 
         <div class="mb-6">
           <ul class="text-body-1">

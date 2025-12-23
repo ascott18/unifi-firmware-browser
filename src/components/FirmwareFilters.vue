@@ -296,8 +296,6 @@ defineExpose({ toggleFilter });
 
 <style lang="scss">
 .filters-card {
-  position: sticky !important;
-  top: 64px;
   .v-expansion-panel-title {
     min-height: 20px !important;
     padding-top: 12px;

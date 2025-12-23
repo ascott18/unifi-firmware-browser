@@ -136,7 +136,7 @@
 
         <v-card>
           <v-card-title class="text-h3">
-            How do I upload and install firmware?
+            How do I manually install firmware?
           </v-card-title>
           <v-card-text>
             <p>
@@ -171,9 +171,7 @@
 
             <v-divider></v-divider>
 
-            <h4 class="text-h4">
-              Network Devices (Access Points, Switches, Gateways)
-            </h4>
+            <h4 class="text-h4">Network Devices</h4>
             <ol>
               <li>
                 <strong>Open device settings:</strong> In the UniFi Network

@@ -1,10 +1,11 @@
 <template>
-  <v-container max-width="1600px">
+  <v-container max-width="1600px" class="pt-0 px-0">
     <v-card class="overflow-visible">
       <v-row no-gutters>
         <!-- Filters Sidebar -->
         <v-col cols="12" md="3" lg="3">
           <FirmwareFilters
+            style="position: sticky; top: 48px"
             ref="filtersRef"
             :products="filterOptions.state.value.products"
             :platforms="filterOptions.state.value.platforms"
