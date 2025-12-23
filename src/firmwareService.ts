@@ -66,6 +66,46 @@ export interface FirmwareFilters {
   sort?: string; // e.g., '-created' for desc, 'created' for asc
 }
 
+// Platform to model mapping
+export const PLATFORM_PRODUCTS: Record<string, string[]> = {
+  a5s: ["UVC Bullet", "UVC Dome", "UVC Micro", "UVC Pro"],
+  cv22: ["AI DSLR"],
+  cv2x: ["AI 360", "AI Bullet", "AI Pro", "AI Theta"],
+  s2l: ["G3 Bullet", "G3 Dome", "G3 Flex", "G3 Pro"],
+  s2lb: ["Vision Go"],
+  s2lm: ["Vision Go", "G3 Micro"],
+  s5l: [
+    "G4 Bullet",
+    "G4 Dome",
+    "G4 Doorbell",
+    "G4 Doorbell Pro",
+    "G4 Doorbell Pro PoE",
+    "G4 Pro",
+    "G4 PTZ",
+  ],
+  sav530q: [
+    "G4 Instant",
+    "G5 Bullet",
+    "G5 Dome",
+    "G5 Flex",
+    "G5 Pro",
+    "G5 PTZ",
+    "G5 Turret Ultra",
+  ],
+  sav532q: ["G3 Instant"],
+  sav539g: ["G6 Instant"],
+  sav539gp: ["G6 PTZ"],
+  sav837gw: [
+    "G4 Instant",
+    "G5 Bullet",
+    "G5 Dome",
+    "G5 Flex",
+    "G5 Pro",
+    "G5 PTZ",
+    "G5 Turret Ultra",
+  ],
+};
+
 class FirmwareService {
   private readonly baseUrl = "https://fw-update.ubnt.com/api";
   private readonly firmwareEndpoint = "/firmware";

@@ -197,7 +197,7 @@
               </li>
               <li class="mb-2">
                 <strong>Upload firmware:</strong> In the camera's web interface,
-                go to the<strong>System</strong> tab and select the firmware
+                go to the <strong>System</strong> tab and select the firmware
                 file.
               </li>
               <li class="mb-2">

@@ -37,7 +37,7 @@
         </v-btn>
       </v-app-bar>
 
-      <v-main class="bg-grey-lighten-5">
+      <v-main>
         <RouterView />
       </v-main>
     </template>

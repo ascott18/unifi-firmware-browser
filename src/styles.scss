@@ -1,0 +1,12 @@
+.v-btn {
+    text-transform: none !important;
+    letter-spacing: inherit !important;
+    text-indent: inherit !important;
+}
+.v-btn--size-x-small {
+    --v-btn-size: 0.75rem !important;
+    --v-btn-height: 24px !important;
+}
+.v-btn--variant-outlined {
+    border-color: color-mix(in srgb, currentColor 50%, transparent) !important;
+}

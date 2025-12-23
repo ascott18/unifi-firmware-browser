@@ -60,6 +60,13 @@
                     }}</v-list-item-subtitle>
                   </v-list-item>
                   <v-list-item
+                    v-if="knownProducts"
+                    prepend-icon="mdi-devices"
+                    :lines="false"
+                    title="Known Models"
+                    :subtitle="knownProducts.join(', ')"
+                  />
+                  <v-list-item
                     prepend-icon="mdi-source-branch"
                     title="Release Channel"
                     :subtitle="
@@ -140,10 +147,13 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
 import { useAsyncState } from "@vueuse/core";
-import firmwareService, { type FirmwareItem } from "@/firmwareService";
+import firmwareService, {
+  type FirmwareItem,
+  PLATFORM_PRODUCTS,
+} from "@/firmwareService";
 import {
   formatFileSize,
   formatDate,
@@ -151,6 +161,12 @@ import {
 } from "@/formatters";
 
 const route = useRoute();
+
+const knownProducts = computed(() => {
+  if (!firmware.state.value) return null;
+  const products = PLATFORM_PRODUCTS[firmware.state.value.platform];
+  return products && products.length > 0 ? products : null;
+});
 
 const firmware = useAsyncState(
   async () => {
