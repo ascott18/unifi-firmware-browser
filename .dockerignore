@@ -1,0 +1,10 @@
+node_modules
+dist
+.git
+.vscode
+.github
+Dockerfile
+README.md
+LICENSE
+.env
+.env.*

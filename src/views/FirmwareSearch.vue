@@ -206,12 +206,12 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from "vue";
 import { useRouter } from "vue-router";
-import firmwareService, { type FirmwareItem } from "@/firmwareService";
+import firmwareService, { type FirmwareItem } from "@/services/firmwareService";
 import {
   formatFileSize,
   formatDate,
   getChannelDisplayName,
-} from "@/formatters";
+} from "@/utils/formatters";
 import { useRouteQuery } from "@vueuse/router";
 import { useAsyncState, useDebounceFn } from "@vueuse/core";
 import type { DataTableHeader } from "vuetify";
@@ -326,9 +326,6 @@ const tableHeaders: DataTableHeader[] = [
     title: "Release Date",
     key: "created",
     sortable: true,
-    value: (item: any) => formatDate(item.created),
-    sortRaw: (a: any, b: any) =>
-      new Date(a.created).getTime() - new Date(b.created).getTime(),
   },
   {
     title: "Type",
@@ -340,8 +337,6 @@ const tableHeaders: DataTableHeader[] = [
     title: "Size",
     key: "file_size",
     sortable: true,
-    value: (item: any) => formatFileSize(item.file_size),
-    sortRaw: (a: any, b: any) => a.file_size - b.file_size,
   },
   { title: "Actions", key: "actions", sortable: false, width: "200px" },
 ];

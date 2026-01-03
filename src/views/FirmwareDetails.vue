@@ -160,13 +160,13 @@
 import { onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
 import { useAsyncState } from "@vueuse/core";
-import firmwareService, { type FirmwareItem } from "@/firmwareService";
+import firmwareService, { type FirmwareItem } from "@/services/firmwareService";
 import { platformModels } from "@/platformModels";
 import {
   formatFileSize,
   formatDate,
   getChannelDisplayName,
-} from "@/formatters";
+} from "@/utils/formatters";
 
 const route = useRoute();
 

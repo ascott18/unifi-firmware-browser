@@ -35,6 +35,13 @@
         >
           GitHub
         </v-btn>
+
+        <v-btn
+          variant="text"
+          :icon="isDark ? 'mdi-weather-sunny' : 'mdi-weather-night'"
+          @click="toggleTheme"
+          :title="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+        ></v-btn>
       </v-app-bar>
 
       <v-main>
@@ -48,8 +55,24 @@
 import { RouterLink, RouterView } from "vue-router";
 import { useLocalStorage } from "@vueuse/core";
 import DisclaimerDialog from "./components/DisclaimerDialog.vue";
+import { useTheme } from "vuetify";
+import { computed } from "vue";
 
 const hasAcceptedEula = useLocalStorage("disclaimer-agreed", false);
+
+const theme = useTheme();
+const savedTheme = useLocalStorage("user-theme", "light");
+
+// Initialize theme
+theme.global.name.value = savedTheme.value;
+
+const isDark = computed(() => theme.global.current.value.dark);
+
+const toggleTheme = () => {
+  const newTheme = isDark.value ? "light" : "dark";
+  theme.global.name.value = newTheme;
+  savedTheme.value = newTheme;
+};
 </script>
 
 <style>

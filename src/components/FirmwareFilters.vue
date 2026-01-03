@@ -136,7 +136,7 @@
 <script setup lang="ts">
 import { ref, computed, reactive } from "vue";
 import { platformModels } from "@/platformModels";
-import { getChannelDisplayName } from "@/formatters";
+import { getChannelDisplayName } from "@/utils/formatters";
 import { useDisplay } from "vuetify";
 
 type FilterKey = "product" | "platform" | "channel";

@@ -6,19 +6,25 @@ import router from "./router";
 import "./styles.scss";
 import "vuetify/styles";
 import { createVuetify } from "vuetify";
-import * as components from "vuetify/components";
-import * as directives from "vuetify/directives";
 import "@mdi/font/css/materialdesignicons.css";
 
 const vuetify = createVuetify({
-  components,
-  directives,
   theme: {
+    defaultTheme: "light",
     themes: {
       light: {
+        dark: false,
         colors: {
           primary: "#006fff",
           background: "#f3f3f3",
+        },
+      },
+      dark: {
+        dark: true,
+        colors: {
+          primary: "#006fff",
+          background: "#121212",
+          surface: "#1E1E1E",
         },
       },
     },
